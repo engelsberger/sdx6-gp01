@@ -58,7 +58,7 @@ jobs:
       - name: Build Image (no push yet)
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ./src
           push: false
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
           platforms: linux/amd64,linux/arm64
