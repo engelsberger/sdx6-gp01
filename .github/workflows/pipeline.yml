@@ -25,13 +25,13 @@ jobs:
 
       - name: Run golangci-lint
         uses: golangci/golangci-lint-action@v7
-        with:
-          working-directory: ./src
+        #with:
+        #  working-directory: ./src
 
       - name: Lint Dockerfile
         uses: hadolint/hadolint-action@v3.1.0
         with:
-          dockerfile: ./src/Dockerfile
+          dockerfile: Dockerfile
 
   build:
     name: Build Multi-Arch Image
@@ -58,7 +58,7 @@ jobs:
       - name: Build Image (no push yet)
         uses: docker/build-push-action@v5
         with:
-          context: ./src
+          context: .
           push: false
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
           platforms: linux/amd64,linux/arm64
