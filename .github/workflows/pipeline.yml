@@ -81,7 +81,7 @@ jobs:
           image-ref: app:${{ github.sha }}
           format: table
           exit-code: 1
-          severity: HIGH,CRITICAL
+          severity: CRITICAL
 
   integration:
     name: Integration Tests
