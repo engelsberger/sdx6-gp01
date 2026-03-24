@@ -76,7 +76,7 @@ jobs:
         run: docker build -t app:${{ github.sha }} .
 
       - name: Run Trivy scan
-        uses: aquasecurity/trivy-action@0.20.0
+        uses: aquasecurity/trivy-action@0.35.0
         with:
           image-ref: app:${{ github.sha }}
           format: table

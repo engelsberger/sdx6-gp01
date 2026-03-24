@@ -22,7 +22,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./src/Dockerfile
     container_name: sdx-app
     restart: unless-stopped
     depends_on:
