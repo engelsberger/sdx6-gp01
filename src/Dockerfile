@@ -17,7 +17,7 @@ FROM alpine:3.19
 
 WORKDIR /app
 
-RUN apk add --no-cache ca-certificates=20240226-r0
+RUN apk add --no-cache ca-certificates=20250911-r0
 
 COPY --from=builder /app/sdx-service .
 
