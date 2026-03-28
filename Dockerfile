@@ -1,5 +1,6 @@
 # Go binary
-FROM golang:1.24-alpine AS builder
+FROM golang:1.26-alpine AS builder
+
 
 WORKDIR /app
 
@@ -13,7 +14,7 @@ COPY . .
 RUN CGO_ENABLED=0 GOOS=linux go build -o sdx-service .
 
 # Runtime image
-FROM alpine:3.19
+FROM alpine:3.21
 
 WORKDIR /app
 
