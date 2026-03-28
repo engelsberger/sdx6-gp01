@@ -63,11 +63,14 @@ jobs:
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
           platforms: linux/amd64,linux/arm64
 
+      - name: Build image locally for SBOM
+        run: docker build -t app:${{ github.sha }} .
+
       - name: Generate SBOM with Syft
         run: |
           curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh
           export PATH=$PATH:$(pwd)/bin
-          syft packages docker:app:${{ github.sha }} -o cyclonedx-json > sbom.json
+          syft scan docker:app:${{ github.sha }} -o cyclonedx-json > sbom.json
           cat sbom.json
 
   security:
