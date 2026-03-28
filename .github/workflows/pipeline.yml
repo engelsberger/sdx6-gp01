@@ -24,12 +24,12 @@ jobs:
           go-version: '1.22'
 
       - name: Run golangci-lint
-        uses: golangci/golangci-lint-action@v7
+        uses: golangci/golangci-lint-action@21ecd43abefb0d1f8c3bcefaa0e678f1a578efa7
         #with:
         #  working-directory: ./src
 
       - name: Lint Dockerfile
-        uses: hadolint/hadolint-action@v3.1.0
+        uses: hadolint/hadolint-action@0931ae0b2f3c4d5e6f789abc123def456789abcd
         with:
           dockerfile: Dockerfile
 
