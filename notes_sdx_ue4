@@ -1,0 +1,77 @@
+
+# TO INSTALL:
+
+kind
+
+https://github.com/kubernetes-sigs/kind/releases -> kind-linux-amd64
+chmod +x kind-linux-amd64
+sudo mv kind-linux-amd64 /usr/local/bin/kind
+
+helm
+
+sudo apt-get install curl gpg apt-transport-https --yes
+curl -fsSL https://packages.buildkite.com/helm-linux/helm-debian/gpgkey | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
+echo "deb [signed-by=/usr/share/keyrings/helm.gpg] https://packages.buildkite.com/helm-linux/helm-debian/any/ any main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+sudo apt-get update
+sudo apt-get install helm
+
+kubectl
+
+curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin/kubectl
+
+k9s
+
+https://github.com/derailed/k9s/releases -> k9s_linux_amd64.deb
+sudo dpkg -i k9s_linux_amd64.deb
+
+
+# NOTES
+
+Create cluster:
+kind create cluster
+(User muss in docker gruppe sein)
+
+List cluster
+kubectl get nodes
+
+Hinzugefügt zu Chart.yaml (wir benötigen postgres für Datenbank):
+dependencies:
+  - name: postgres
+    version: "0.19.0"
+    repository: "oci://registry-1.docker.io/cloudpirates"
+
+Hinzugefügt zu values.yaml unter image:
+repository: ghcr.io/engelsberger/sdx6ue2
+(zu finden im Github unter Pakete)
+tag: "latest"
+
+dependencies holen:
+helm dependency update
+
+View template:
+helm template .
+(Inside the ./charts/recipe-service)
+(wenn irgendwo Formfehler sind, spuckt er einen Fehler aus)
+
+Install chart:
+helm install sdx-recipe ./charts/recipe-service
+
+Upgrade chart (wenn schon läuft)
+helm upgrade sdx-recipe ./charts/recipe-service
+
+
+
+Laufende charts sind dann in k9s zu sehen.
+Falls Probleme: Chart mit pfeiltasten auswählen und <d> klicken (Describe) -> runterscrollen -> zeigt Events an
+
+List secrets:
+:secrets (mit : öffnet eingabefenster, "secrets" eingeben)
+Zurück zu pods:
+:pod
+
+Secret anzeigen (dekodieren) mit <x>
+
+
+
