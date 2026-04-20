@@ -1,0 +1,34 @@
+replicaCount: 1
+
+image:
+  repository: recipe-api
+  tag: "dev"
+  pullPolicy: IfNotPresent
+
+dbUser: developer
+dbPassword: devpassword
+dbHost: localhost
+dbName: recipes
+
+service:
+  type: ClusterIP
+  port: 80
+
+securityContext:
+  runAsNonRoot: false
+  readOnlyRootFilesystem: false
+  capabilities: {}
+
+resources: {}
+
+ingress:
+  enabled: true
+  className: nginx
+  hosts:
+    - host: recipe.dev.at
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: false
+
+podSecurityContext: {}
